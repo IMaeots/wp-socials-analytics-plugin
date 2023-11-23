@@ -353,29 +353,29 @@ class JSONProcessor
             $likesDescription = "Do not worry - the like button is just fine - keep smashing it!";
         }
 
-
         // Make slideshow text from data.
-        $nameIntro = "<span style='font-size: xx-large; font-weight: bold'>{$dictData['name']}</span>, right?<br>Let's take a look at your activity on TikTok, shall we.";
+        // CSS needs to have defined slideshow-x-larger-bolder, slideshow-larger-bolder, slideshow-x-larger, slideshow-larger.
+        $nameIntro = "<span class='slideshow-larger-bolder'>{$dictData['name']}</span>, right?<br>Let's take a look at your activity on TikTok, shall we.";
 
-        $remarkInfo = "since <span style='font-size: xx-large;'>{$dictData['start_date']}</span><br>you've watched <span style='font-size: xx-large; font-weight: bold;'>{$dictData['num_videos_watched']}</span> videos<br$remark";
+        $remarkInfo = "since <span class='slideshow-larger'>{$dictData['start_date']}</span><br>you've watched <span class='slideshow-larger-bolder'>{$dictData['num_videos_watched']}</span> videos<br$remark";
 
-        $watchSessions = "you've had<br><span style='font-size: xxx-large; font-weight: bold;'>{$dictData['num_watch_sessions']}</span><br>watch sessions";
+        $watchSessions = "you've had<br><span class='slideshow-x-larger-bolder'>{$dictData['num_watch_sessions']}</span><br>watch sessions";
 
-        $averageSessionLength = "When you open TikTok,<br>on average<br>you spend <span style='font-size: xx-large; font-weight:bold;'>{$dictData['avg_session_length']}</span> minutes watching videos...";
+        $averageSessionLength = "When you open TikTok,<br>on average<br>you spend <span class='slideshow-larger-bolder'>{$dictData['avg_session_length']}</span> minutes watching videos...";
 
-        $totalWatchTime = "with a total watch time of <b><span style='font-size: xxx-large;'>{$dictData['total_watch_time']}</span> minutes.</b><br>That's <b>{$dictData['total_watch_days']}</b> days!";
+        $totalWatchTime = "with a total watch time of <b><span class='slideshow-x-larger'>{$dictData['total_watch_time']}</span> minutes.</b><br>That's <b>{$dictData['total_watch_days']}</b> days!";
 
         $actionInfo = "In that time you could've<br>$action<br>but you didn't...";
 
         $longestWatchSession = "Your longest watch session was on {$dictData['longest_watch_date']}<br>and lasted <b>{$dictData['longest_watch_time']}</b> minutes<br>Must have been a hard day.";
 
-        $tikTokDayInfo = "You use TikTok the most on <span style='font-size: xxx-large; font-weight: bold'>{$dictData['tiktok_day']}</span>";
+        $tikTokDayInfo = "You use TikTok the most on <span class='slideshow-x-larger-bolder'>{$dictData['tiktok_day']}</span>";
 
-        $chattingInfo = "You wrote <span style='font-size: xx-large; font-weight: bold'>{$dictData['num_of_comments']}</span> comments<br>and used the {$dictData['favourite_emoji']} emoji <b>{$dictData['favourite_emoji_amount']}</b> times<br$chattingDescription";
+        $chattingInfo = "You wrote <span class='slideshow-larger-bolder'>{$dictData['num_of_comments']}</span> comments<br>and used the {$dictData['favourite_emoji']} emoji <b>{$dictData['favourite_emoji_amount']}</b> times<br$chattingDescription";
 
-        $likesInfo = "You liked <span style='font-size: xxx-large; font-weight: bold;'>{$dictData['num_of_likes']}</span> videos<br>and<br>set a record by liking <span style='font-size: xx-large; font-weight: bold'>{$dictData['record_of_likes']}</span> videos on <b>{$dictData['record_of_likes_date']}</b><br$likesDescription";
+        $likesInfo = "You liked <span class='slideshow-x-larger-bolder'>{$dictData['num_of_likes']}</span> videos<br>and<br>set a record by liking <span class='slideshow-larger-bolder'>{$dictData['record_of_likes']}</span> videos on <b>{$dictData['record_of_likes_date']}</b><br$likesDescription";
 
-        $personaInfo = "Your TikTok persona is <span style='font-size: xx-large; font-weight: bold'>{$dictData['persona']}</span><br>{$dictData['persona_description']}";
+        $personaInfo = "Your TikTok persona is <span class='slideshow-larger-bolder'>{$dictData['persona']}</span><br>{$dictData['persona_description']}";
 
         $dataForSlideshowText = array(
             $nameIntro,
