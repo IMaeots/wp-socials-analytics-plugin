@@ -2,7 +2,7 @@
 /*
 Plugin Name: TikTok Analytics Plugin
 Description: Plugin to process TikTok JSON data.
-Version: 1.1
+Version: 1.1.1
 Author: IMaeots
 */
 
