@@ -365,7 +365,7 @@ class JSONProcessorTikTok
 
         $totalWatchTime = "with a total watch time of <b><span class='slideshow-x-larger'>{$dictData['total_watch_time']}</span> minutes.</b><br>That's <span class='slideshow-bolder'>{$dictData['total_watch_days']}</span> days!";
 
-        $actionInfo = "<span class='slideshow-larger'>In that time you could've<br>$action<br></span>But you didn't...";
+        $actionInfo = "In that time you could've<br>$action<br>But you didn't...";
 
         $longestWatchSession = "Your longest watch session was on <span class='slideshow-larger'>{$dictData['longest_watch_date']}</span><br>and lasted <span class='slideshow-bolder'>{$dictData['longest_watch_time']}</span> minutes<br>Must have been a hard day.";
 
