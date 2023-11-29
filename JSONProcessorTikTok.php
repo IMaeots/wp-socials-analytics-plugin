@@ -363,17 +363,17 @@ class JSONProcessorTikTok
 
         $averageSessionLength = "When you open TikTok,<br>on average<br>you spend <span class='slideshow-larger-bolder'>{$dictData['avg_session_length']}</span> minutes watching videos...";
 
-        $totalWatchTime = "with a total watch time of <b><span class='slideshow-x-larger'>{$dictData['total_watch_time']}</span> minutes.</b><br>That's <b>{$dictData['total_watch_days']}</b> days!";
+        $totalWatchTime = "with a total watch time of <b><span class='slideshow-x-larger'>{$dictData['total_watch_time']}</span> minutes.</b><br>That's <span class='slideshow-bolder'>{$dictData['total_watch_days']}</span> days!";
 
-        $actionInfo = "In that time you could've<br>$action<br>but you didn't...";
+        $actionInfo = "<span class='slideshow-larger'>In that time you could've<br>$action<br></span>But you didn't...";
 
-        $longestWatchSession = "Your longest watch session was on {$dictData['longest_watch_date']}<br>and lasted <b>{$dictData['longest_watch_time']}</b> minutes<br>Must have been a hard day.";
+        $longestWatchSession = "Your longest watch session was on <span class='slideshow-larger'>{$dictData['longest_watch_date']}</span><br>and lasted <span class='slideshow-bolder'>{$dictData['longest_watch_time']}</span> minutes<br>Must have been a hard day.";
 
         $tikTokDayInfo = "You use TikTok the most on <span class='slideshow-x-larger-bolder'>{$dictData['tiktok_day']}</span>";
 
-        $chattingInfo = "You wrote <span class='slideshow-larger-bolder'>{$dictData['num_of_comments']}</span> comments<br>and used the {$dictData['favourite_emoji']} emoji <b>{$dictData['favourite_emoji_amount']}</b> times<br$chattingDescription";
+        $chattingInfo = "You wrote <span class='slideshow-larger-bolder'>{$dictData['num_of_comments']}</span> comments<br>and used the {$dictData['favourite_emoji']} emoji <span class='slideshow-bolder'>{$dictData['favourite_emoji_amount']}</span> times<br$chattingDescription";
 
-        $likesInfo = "You liked <span class='slideshow-x-larger-bolder'>{$dictData['num_of_likes']}</span> videos<br>and<br>set a record by liking <span class='slideshow-larger-bolder'>{$dictData['record_of_likes']}</span> videos on <b>{$dictData['record_of_likes_date']}</b><br$likesDescription";
+        $likesInfo = "You liked <span class='slideshow-x-larger-bolder'>{$dictData['num_of_likes']}</span> videos<br>and<br>set a record by liking <span class='slideshow-larger-bolder'>{$dictData['record_of_likes']}</span> videos on <span class='slideshow-bolder'>{$dictData['record_of_likes_date']}</span><br$likesDescription";
 
         $personaInfo = "Your TikTok persona is <span class='slideshow-larger-bolder'>{$dictData['persona']}</span><br>{$dictData['persona_description']}";
 
