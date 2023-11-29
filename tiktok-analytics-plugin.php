@@ -1,18 +1,27 @@
 <?php
 /*
-Plugin Name: TikTok Analytics Plugin
-Description: Plugin to process TikTok JSON data.
-Version: 1.1.1
+Plugin Name: Socials Analytics Plugin
+Description: Plugin to process Social platforms JSON data.
+Version: 2.0
 Author: IMaeots
 */
 
 // Include your model.php file
-require_once(plugin_dir_path(__FILE__) . 'JSONProcessor.php');
+require_once(plugin_dir_path(__FILE__) . 'JSONProcessorTikTok.php');
+
+// Helper function.
+function display_error_msg($message): void
+{
+    ?>
+    <div class="error">
+        <p><?php echo esc_html($message); ?></p>
+    </div>
+    <?php
+}
 
 
 // Hook into WordPress action for handling file uploads
 add_action('init', 'handle_tiktok_upload');
-
 function handle_tiktok_upload(): void
 {
     if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['jsonFile'])) {
@@ -54,7 +63,7 @@ function handle_tiktok_upload(): void
                             $zip->close();
 
                             // Perform stuff with the json file
-                            $jsonProcessor = new JSONProcessor($jsonData);
+                            $jsonProcessor = new JSONProcessorTikTok($jsonData);
                             $dictData = $jsonProcessor->getTikTokDataAsDict();
                             $slideshowTexts = $jsonProcessor->getTikTokSlideshowTexts($dictData);
 
@@ -80,7 +89,7 @@ function handle_tiktok_upload(): void
             } elseif ($fileExtension === "json") {
                 // Handle the case where it's a JSON file
                 $jsonContents = file_get_contents($_FILES["jsonFile"]["tmp_name"]);
-                $jsonProcessor = new JSONProcessor($jsonContents);
+                $jsonProcessor = new JSONProcessorTikTok($jsonContents);
 
                 // Delete the uploaded file after giving it to processor.
                 unlink($_FILES['jsonFile']['tmp_name']);
@@ -109,7 +118,7 @@ function handle_tiktok_upload(): void
             display_error_msg($msg);
         }
     } elseif (isset($_POST['start_demo'])) {
-        $jsonProcessor = new JSONProcessor("");
+        $jsonProcessor = new JSONProcessorTikTok("");
         $dictData = $jsonProcessor->getTikTokDataAsDict();
         session_start();
         $_SESSION['data'] = $jsonProcessor->getTikTokDataAsDict();
@@ -120,12 +129,21 @@ function handle_tiktok_upload(): void
     }
 }
 
-// Helper function
-function display_error_msg($message): void
+
+add_action('init', 'handle_instagram_upload');
+function handle_instagram_upload(): void
 {
-    ?>
-    <div class="error">
-        <p><?php echo esc_html($message); ?></p>
-    </div>
-    <?php
+
+}
+
+add_action('init', 'handle_facebook_upload');
+function handle_facebook_upload(): void
+{
+
+}
+
+add_action('init', 'handle_x_upload');
+function handle_x_upload(): void
+{
+
 }

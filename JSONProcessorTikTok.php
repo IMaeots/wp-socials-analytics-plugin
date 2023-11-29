@@ -1,6 +1,6 @@
 <?php
 
-class JSONProcessor
+class JSONProcessorTikTok
 {
     private mixed $data;
 

@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/wp_tiktok_model_plugin.iml" filepath="$PROJECT_DIR$/wp_tiktok_model_plugin.iml" />
+      <module fileurl="file://$PROJECT_DIR$/wp_socials_json_plugin.iml" filepath="$PROJECT_DIR$/wp_socials_json_plugin.iml" />
     </modules>
   </component>
 </project>
