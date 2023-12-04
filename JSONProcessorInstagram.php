@@ -45,17 +45,17 @@ class JSONProcessorInstagram
                 "last_login_timestamp" => date('d/m/Y', "1641732904"),
                 "last_logout_timestamp" => date('d/m/Y', "1604074420"),
                 "first_ever_story_timestamp" => date('d/m/Y', "1497087452"),
-                "suggested_accounts_viewed_alltime" => 25,
-                "story_interactions_quizzes_current" => 8,
-                "story_interactions_polls_current" => 12,
-                "story_interactions_likes_current" => 30,
-                "post_likes_current" => 50,
-                "comment_likes_current" => 40,
-                "post_comments_alltime" => 150,
-                "reels_comments_alltime" => 75,
-                "saved_posts_thisyear" => 20,
-                "posts_thisyear" => 100,
-                "stories_thisyear" => 80
+                "suggested_accounts_viewed_alltime" => 127,
+                "story_interactions_quizzes_current" => 12,
+                "story_interactions_polls_current" => 23,
+                "story_interactions_likes_current" => 65,
+                "post_likes_current" => 223,
+                "comment_likes_current" => 23,
+                "post_comments_alltime" => 12,
+                "reels_comments_alltime" => 18,
+                "saved_posts_thisyear" => 300,
+                "posts_thisyear" => 5,
+                "stories_thisyear" => 42
             );
         }
 
@@ -71,7 +71,7 @@ class JSONProcessorInstagram
 
         $commentsInfo = "You have written <span class='slideshow-larger-bolder'>{$this->dictdata['post_comments_alltime']}</span> comments in Instagram<br>and this year you liked <span class='slideshow-larger-bolder'>{$this->dictdata['comment_likes_current']} comments...</span>";
 
-        $savedInfo = "You saved <span class='slideshow-x-larger-bolder'>{$this->dictdata['saved_posts_thi>syear']}</span> posts this year!<br><span class='slideshow-larger'>Whoop-Whoop!</span>";
+        $savedInfo = "You saved <span class='slideshow-x-larger-bolder'>{$this->dictdata['saved_posts_thisyear']}</span> posts this year!<br><span class='slideshow-larger'>Whoop-Whoop!</span>";
 
         $personaInfo = "Your TikTok persona is <span class='slideshow-larger-bolder'>{$this->dictdata['persona']}</span><br>{$this->dictdata['persona_description']}";
 

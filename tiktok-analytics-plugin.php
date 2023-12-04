@@ -56,10 +56,10 @@ function rrmdir($dir): void
 add_action('init', 'handle_upload_actions');
 function handle_upload_actions() {
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        if ($_POST['action'] === 'handle_instagram_upload') {
-            handle_instagram_upload();
-        } elseif ($_POST['action'] === 'handle_tiktok_upload') {
+        if ($_POST['action'] === 'handle_tiktok_upload') {
             handle_tiktok_upload();
+        } elseif ($_POST['action'] === 'handle_instagram_upload') {
+            handle_instagram_upload();
         }
     }
 }
