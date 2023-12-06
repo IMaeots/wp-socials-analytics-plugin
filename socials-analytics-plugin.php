@@ -2,13 +2,14 @@
 /*
 Plugin Name: Socials Analytics Plugin
 Description: Plugin to process Social platforms JSON data.
-Version: 2.0
+Version: 2.1
 Author: IMaeots
 */
 
 // Include your model.php file
 require_once(plugin_dir_path(__FILE__) . 'JSONProcessorTikTok.php');
 require_once(plugin_dir_path(__FILE__) . 'JSONProcessorInstagram.php');
+require_once(plugin_dir_path(__FILE__) . 'JSONProcessorX.php');
 
 /*
  * Helper functions that help :)
@@ -16,18 +17,19 @@ require_once(plugin_dir_path(__FILE__) . 'JSONProcessorInstagram.php');
 function display_error_msg($message): void
 {
     ?>
-    <div class="error">
-        <p><?php echo esc_html($message); ?></p>
-    </div>
+    <script>
+        var errorMessage = "<?php echo addslashes(esc_js($message)); ?>";
+        alert(errorMessage);
+    </script>
     <?php
 }
 
-function findJSONFiles($dir): array
+function findFiles($dir, $type = 'json'): array
 {
     $iterator = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($dir));
     $jsonFiles = [];
     foreach ($iterator as $file) {
-        if ($file->isFile() && $file->getExtension() === 'json') {
+        if ($file->isFile() && $file->getExtension() === $type) {
             $jsonFiles[] = $file->getPathname();
         }
     }
@@ -52,14 +54,19 @@ function rrmdir($dir): void
     }
 }
 
-// Main Action for file uploads.
+
 add_action('init', 'handle_upload_actions');
 function handle_upload_actions() {
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        if ($_POST['action'] === 'handle_tiktok_upload') {
-            handle_tiktok_upload();
-        } elseif ($_POST['action'] === 'handle_instagram_upload') {
-            handle_instagram_upload();
+        if (isset($_POST['action'])) {
+            $action = $_POST['action'];
+            if ($action === 'handle_instagram_upload') {
+                handle_instagram_upload();
+            } elseif ($action === 'handle_tiktok_upload') {
+                handle_tiktok_upload();
+            } elseif ($action === 'handle_x_upload') {
+                handle_x_upload();
+            }
         }
     }
 }
@@ -87,7 +94,7 @@ function handle_instagram_upload(): void
             $zipFilePath = $_FILES['zip_file']['tmp_name'];
 
             // Directory where you want to extract the zip contents
-            $extractPath = 'extracted/';
+            $extractPath = 'instagram-extracted/';
 
             // Create the extraction directory if it doesn't exist
             if (!file_exists($extractPath)) {
@@ -101,7 +108,7 @@ function handle_instagram_upload(): void
                 $zip->close();
 
                 // Find JSON files within directories
-                $jsonFiles = findJSONFiles($extractPath);
+                $jsonFiles = findFiles($extractPath, 'json');
                 // Give JSON files to JSONProcessor and get processed data back
                 $jsonProcessor = new JSONProcessorInstagram($jsonFiles);
                 $dictData = $jsonProcessor->getInstagramDataAsDict();
@@ -131,7 +138,7 @@ function handle_instagram_upload(): void
         // Make fake data, input into session, and redirect.
         $jsonProcessor = new JSONProcessorInstagram([""]);
         $dictData = $jsonProcessor->getInstagramDataAsDict();
-        $slideshowTexts = $jsonProcessor->getSlideshowTexts($dictData);
+        $slideshowTexts = $jsonProcessor->getSlideshowTexts();
 
         session_start();
         $_SESSION['data'] = $dictData;
@@ -259,5 +266,76 @@ function handle_facebook_upload(): void
 
 function handle_x_upload(): void
 {
+    if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['zip_file'])) {
+        $file = $_FILES['zip_file'];
 
+        // File size check
+        $maxFileSize = 1024 * 1024 * 1024; // 1 Gigabyte
+        if ($file['size'] > $maxFileSize) {
+            $msg = "File size exceeds the allowed limit. Maximum file size is 1GB.";
+            // Display error message
+            display_error_msg($msg);
+        }
+
+        // Check if a file was uploaded
+        if ($file['error'] === UPLOAD_ERR_OK) {
+            $zip = new ZipArchive;
+
+            // Path to the uploaded zip file
+            $zipFilePath = $_FILES['zip_file']['tmp_name'];
+
+            // Directory where you want to extract the zip contents
+            $extractPath = 'x-extracted/';
+
+            // Create the extraction directory if it doesn't exist
+            if (!file_exists($extractPath)) {
+                mkdir($extractPath, 0777, true);
+            }
+
+            // Open the zip file
+            if ($zip->open($zipFilePath) === TRUE) {
+                // Extract the contents of the zip file
+                $zip->extractTo($extractPath);
+                $zip->close();
+
+                // Find JSON files within directories
+                $jsFiles = findFiles($extractPath, 'js');
+                // Give JSON files to JSONProcessor and get processed data back
+                $jsonProcessor = new JSONProcessorX($jsFiles);
+                $dictData = $jsonProcessor->getXDataAsDict();
+                $slideshowTexts = $jsonProcessor->getSlideshowTexts();
+
+                // Delete user input zip content
+                rrmdir($extractPath);
+
+                // Start a session, input data, redirect.
+                session_start();
+                $_SESSION['data'] = $dictData;
+                $_SESSION['data_for_slideshow_json'] = $slideshowTexts;
+
+                wp_redirect(site_url('/x-wrapped'));
+                exit();
+
+
+            } else {
+                echo 'Failed to open the zip file';
+            }
+        } else {
+            echo 'Error uploading zip';
+        }
+
+
+    } elseif (isset($_POST['start_demo'])) {
+        // Make fake data, input into session, and redirect.
+        $jsonProcessor = new JSONProcessorX([""]);
+        $dictData = $jsonProcessor->getXDataAsDict();
+        $slideshowTexts = $jsonProcessor->getSlideshowTexts();
+        
+        session_start();
+        $_SESSION['data'] = $dictData;
+        $_SESSION['data_for_slideshow_json'] = $slideshowTexts;
+
+        wp_redirect(site_url('/x-wrapped'));
+        exit();
+    }
 }
