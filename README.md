@@ -3,6 +3,11 @@
 ## What is it for?
 It was made for socialswrapped.com webpage to unpack and transform data into a nice way - in order to display it using template.
 
+## What is supported?
+- TikTok
+- Instagram
+- Twitter aka X
+
 ## Structure
 - Socials analytics plugin PHP file does POST method handling and SESSION related operations in order to fetch data and give back data.
 - JSONProcessor files handle the json/js file locations and transform their data into wished formats - then return it.
