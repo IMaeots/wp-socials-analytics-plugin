@@ -27,13 +27,13 @@ function display_error_msg($message): void
 function findFiles($dir, $type = 'json'): array
 {
     $iterator = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($dir));
-    $jsonFiles = [];
+    $requiredFiles = [];
     foreach ($iterator as $file) {
         if ($file->isFile() && $file->getExtension() === $type) {
-            $jsonFiles[] = $file->getPathname();
+            $requiredFiles[] = $file->getPathname();
         }
     }
-    return $jsonFiles;
+    return $requiredFiles;
 }
 
 // Remove the extracted directory and its contents
@@ -79,13 +79,12 @@ function handle_instagram_upload(): void
         $file = $_FILES['zip_file'];
 
         // File size check
-        $maxFileSize = 20 * 1024 * 1024; // 20 megabytes
+        $maxFileSize = 512 * 1024 * 1024; // 0,5 Gigabyte
         if ($file['size'] > $maxFileSize) {
-            $msg = "File size exceeds the allowed limit. Maximum file size is 20MB.";
+            $msg = "File size exceeds the allowed limit. Maximum file size is 0,5GB.";
             // Display error message
             display_error_msg($msg);
         }
-
         // Check if a file was uploaded
         if ($file['error'] === UPLOAD_ERR_OK) {
             $zip = new ZipArchive;
@@ -108,7 +107,8 @@ function handle_instagram_upload(): void
                 $zip->close();
 
                 // Find JSON files within directories
-                $jsonFiles = findFiles($extractPath, 'json');
+                $jsonFiles = findFiles($extractPath);
+
                 // Give JSON files to JSONProcessor and get processed data back
                 $jsonProcessor = new JSONProcessorInstagram($jsonFiles);
                 $dictData = $jsonProcessor->getInstagramDataAsDict();
@@ -156,9 +156,9 @@ function handle_tiktok_upload(): void
         $file = $_FILES['jsonFile'];
 
         // File size check
-        $maxFileSize = 10 * 1024 * 1024; // 10 megabytes
+        $maxFileSize = 1024 * 1024 * 1024; // 1 gigabyte
         if ($file['size'] > $maxFileSize) {
-            $msg = "File size exceeds the allowed limit. Maximum file size is 10MB.";
+            $msg = "File size exceeds the allowed limit. Maximum file size is 1GB.";
             // Display error message
             display_error_msg($msg);
         }
