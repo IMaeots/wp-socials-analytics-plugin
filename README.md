@@ -1,5 +1,7 @@
 # Socials analytics plugin
 
+# 1/3 of SocialsWrapped
+
 ## What is it for?
 It was made for socialswrapped.com webpage to unpack and transform data into a nice way - in order to display it using template.
 
