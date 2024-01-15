@@ -20,3 +20,12 @@ You can check out a video from when the plugin was in use and live on the webpag
 Plugin supports the File upload handling, data transformation and returning.
 
 Youtube: https://youtu.be/64NWJkOQ-TU?si=z8kjZRWvQ_Njth8d
+
+## License
+Copyright 2024 IMaeots
+
+Licensed under the Apache License, Version 2.0 (the "License.txt");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+`http://www.apache.org/licenses/LICENSE-2.0`
